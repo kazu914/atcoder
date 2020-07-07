@@ -17,52 +17,28 @@ def main():
     a = deque(LI())
     b = deque(LI())
 
-    ans = 0
-    canContinue = True
-    while canContinue:
-        if len(a) == 0 and len(b) == 0:
-            canContinue = False
+    A, B = [0], [0]
+
+    for i in range(len(a)):
+        A.append(A[i]+a[i])
+    for i in range(len(b)):
+        B.append(B[i]+b[i])
+
+    index = m
+    ans = [0]
+    for i in range(len(a)+1):
+        rest = k - A[i]
+        if rest < 0:
             break
-        if len(b) == 0:
-            a_top = a.pop()
-            k -= a_top
-            if (k < 0):
-                canContinue = False
-                break
-            ans += 1
-            continue
 
-        if len(a) == 0:
-            b_top = b.pop()
-            k -= b_top
-            if (k < 0):
-                canContinue = False
-                break
-            ans += 1
-            continue
+        while B[index] > rest:
+            index -= 1
 
-        a_top = a[0]
-        b_top = b[0]
+        ans.append(i + index)
 
-        if a_top <= b_top:
-            a_top = a.pop()
-            k -= a_top
-            if (k < 0):
-                canContinue = False
-                break
-            ans += 1
-            continue
-        else:
-            b_top = b.pop()
-            k -= b_top
-            if (k < 0):
-                canContinue = False
-                break
-            ans += 1
-            continue
-    print(ans)
+    print(max(ans))
 
 
-# oj t -c "pypy3 main.py"
-# acc s main.py -- --guess-python-interpreter pypy
+    # oj t -c "pypy3 main.py"
+    # acc s main.py -- --guess-python-interpreter pypy
 main()
