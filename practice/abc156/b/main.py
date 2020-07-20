@@ -19,7 +19,7 @@ def main():
     N, K = MI()
 
     i = 1
-    while K ** i < N:
+    while K ** i <= N:
         i += 1
     print(i)
 
